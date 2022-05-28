@@ -22,15 +22,6 @@ public class RegisterForm extends javax.swing.JFrame {
         initComponents();
         userservice = new UserService();
     }
-    
-//    private boolean validateInput(User user){
-//        String firstname = user.getFirstname();
-//        String lastname = user.getLastname();
-//        String username = user.getUsername();
-//        String password = user.getPassword();
-//        String repassword = user.getRepassword();
-//        
-//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -164,6 +155,7 @@ public class RegisterForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -173,6 +165,7 @@ public class RegisterForm extends javax.swing.JFrame {
         String username = usernameField.getText();
         String password = passwordField.getText();
         String repassword = repasswordField.getText();
+        
         User user = new User(firstname,lastname,username,password,repassword);
         
         nameField.setText(null);
@@ -181,14 +174,37 @@ public class RegisterForm extends javax.swing.JFrame {
         passwordField.setText(null);
         repasswordField.setText(null);
         
-        if(!userservice.addUser(user)){
+        if(validateUser(user)){
+            if(!userservice.addUser(user)){
             JOptionPane.showMessageDialog(this, "Added");
-        }
-        else{
-            JOptionPane.showMessageDialog(this, "Bunday username bor!");
+          }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private boolean validateUser(User user){
+        if(user.getPassword().length() < 5){
+            JOptionPane.showMessageDialog(this, "Parol uzunligi 5 tadan kam");
+            return false;
+        }
+        else if(!user.getPassword().equals(user.getRepassword())){
+            JOptionPane.showMessageDialog(this, "Parollar mos kelmadi!!!");
+            return false;
+        }
+        else if(userservice.hasUsername(user.getUsername())){
+            JOptionPane.showMessageDialog(this, "Bunday username bor");
+            return false;
+        }
+        else if(user.getFirstname().length() < 3){
+            JOptionPane.showMessageDialog(this, "Ism uzunligi 3 tadan kam");
+            return false;
+        }
+        else if(user.getLastname().length() < 5){
+            JOptionPane.showMessageDialog(this, "Familiya uzunligi 3 tadan kam");
+            return false;
+        }
+        return true;
+    }
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         this.setVisible(false);
@@ -228,6 +244,8 @@ public class RegisterForm extends javax.swing.JFrame {
                 new RegisterForm().setVisible(true);
             }
         });
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

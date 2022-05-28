@@ -18,19 +18,6 @@ import project_shopping.models.User;
  * @author Admin
  */
 public class UserService extends DBService {
-//    public boolean addUser(User user){
-//        try {
-//            String query = "INSERT INTO user(first_name,last_name,username,password,role)"
-//                    + "VALUES('" + user.getFirstname() + "','" + user.getLastname() + "','"
-//                    + user.getUsername() + "','" + user.getPassword() + "');";
-//            Statement createStatement = connection.createStatement();
-//            createStatement.execute(query);
-//            return true;
-//        } catch (SQLException ex) {
-//            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-//            return false;
-//        }
-//    }
     
     public boolean addUser(User user){
         try {
@@ -43,6 +30,20 @@ public class UserService extends DBService {
             statement.registerOutParameter(1, Types.BOOLEAN);
             statement.executeUpdate();
             return statement.getBoolean(1);
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    public boolean editUser(User user){
+        try {
+            String query = "UPDATE user SET first_name = '" + user.getFirstname() + "',"
+                    + "last_name = '" + user.getLastname() + "',username = '" + user.getUsername() + "',"
+                    + "password = '" + user.getPassword() + "' WHERE id_user = " + user.getId_user() + ";";
+            Statement createStatement = connection.createStatement();
+            createStatement.execute(query);
+            return true;
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -69,4 +70,40 @@ public class UserService extends DBService {
         }
     }
     
+    public User getUserById(Integer id_user){
+        try {
+            String query = "SELECT *FROM user WHERE id_user = " + id_user;
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            rs.next();
+            String firstname = rs.getString("first_name");
+            String lastname = rs.getString("last_name");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            User user = new User(id_user,firstname,lastname,username,password);
+            return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public User getUserByUsername(String _username){
+        try {
+            String query = "SELECT *FROM user WHERE username = '" + _username + "';";
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            rs.next();
+            Integer id_user = rs.getInt("id_user");
+            String firstname = rs.getString("first_name");
+            String lastname = rs.getString("last_name");
+            String username = rs.getString("username");
+            String password = rs.getString("password");
+            User user = new User(id_user,firstname,lastname,username,password);
+            return user;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }

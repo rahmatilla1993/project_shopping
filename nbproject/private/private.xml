@@ -3,14 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/EditForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/AdminForm.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/RegisterForm.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/DetailsForm.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/models/Product.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/UserService.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/DBService.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/ProductService.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/CartForm.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/MainForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/models/User.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/resource/FileResource.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/ProductForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/LoginForm.java</file>
         </group>
     </open-files>
 </project-private>
