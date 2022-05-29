@@ -120,14 +120,13 @@ public class LoginForm extends javax.swing.JFrame {
             if(!user.getPassword().equals(password)){
                 JOptionPane.showMessageDialog(this, "Parol xato!");
             }
-            else if(username.equals("admin") && password.equals("admin")){
+            else if(user.getRole().equals("ADMIN")){
                 InitializeResource(user);
                 new AdminForm().setVisible(true);
             }
             else{
                 InitializeResource(user);
                 MainForm mainForm = new MainForm();
-//                mainForm.fileCreated(user.getUsername());
                 mainForm.setVisible(true);
             }
         }

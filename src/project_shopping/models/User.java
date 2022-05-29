@@ -15,7 +15,26 @@ public class User {
     private String username;
     private String password;
     private String repassword;
+    private String role;
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public User(Integer id_user, String firstname, String lastname, String username, String password, String repassword, String role) {
+        this.id_user = id_user;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.password = password;
+        this.repassword = repassword;
+        this.role = role;
+    }
+    
     public User(Integer id_user, String firstname, String lastname, String username, String password, String repassword) {
         this.id_user = id_user;
         this.firstname = firstname;
@@ -87,10 +106,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" + "id_user=" + id_user + ", firstname=" + firstname + ", "
-                + "lastname=" + lastname + ", username=" + username + ", password=" + 
-                password + ", repassword=" + repassword + '}';
+        return "User{" + "id_user=" + id_user + ", firstname=" + firstname + ", lastname=" 
+                + lastname + ", username=" + username + ", password=" + 
+                password + ", repassword=" + repassword + ", role=" + role + '}';
     }
+
+    
 
     public void setRepassword(String repassword) {
         this.repassword = repassword;

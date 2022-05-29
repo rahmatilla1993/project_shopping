@@ -119,10 +119,8 @@ public class MainForm extends javax.swing.JFrame {
         place_photo.setBackground(new java.awt.Color(153, 204, 255));
 
         category.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        category.setText("kategoriya");
 
         nomi.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        nomi.setText("jLabel3");
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("To'liq ma'lumot");
@@ -277,7 +275,7 @@ public class MainForm extends javax.swing.JFrame {
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();

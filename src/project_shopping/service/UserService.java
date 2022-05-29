@@ -37,33 +37,18 @@ public class UserService extends DBService {
     }
     
     public boolean editUser(User user){
+        
         try {
-            String query = "UPDATE user SET first_name = '" + user.getFirstname() + "',"
-                    + "last_name = '" + user.getLastname() + "',username = '" + user.getUsername() + "',"
-                    + "password = '" + user.getPassword() + "' WHERE id_user = " + user.getId_user() + ";";
-            Statement createStatement = connection.createStatement();
-            createStatement.execute(query);
-            return true;
-        } catch (SQLException ex) {
-            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
-            return false;
-        }
-    }
-    
-    public boolean existsByUsernameAndIdIsNot(String _username, Integer id){
-        boolean exist = false;
-        try {
-            String query = "SELECT username FROM user WHERE id_user != " + id;
-            Statement createStatement = connection.createStatement();
-            ResultSet rs = createStatement.executeQuery(query);
-            while(rs.next()){
-                String username = rs.getString("username");
-                if(username.equals(_username)){
-                    exist = true;
-                    break;
-                }
-            }
-            return exist;
+            String query = "{? = CALL editUser(?,?,?,?,?)}";
+            CallableStatement statement = connection.prepareCall(query);
+            statement.setString(2, user.getFirstname());
+            statement.setString(3, user.getLastname());
+            statement.setString(4, user.getUsername());
+            statement.setString(5, user.getPassword());
+            statement.setInt(6, user.getId_user());
+            statement.registerOutParameter(1, Types.BOOLEAN);
+            statement.executeUpdate();
+            return statement.getBoolean(1);
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
@@ -119,7 +104,8 @@ public class UserService extends DBService {
             String lastname = rs.getString("last_name");
             String username = rs.getString("username");
             String password = rs.getString("password");
-            User user = new User(id_user,firstname,lastname,username,password);
+            String role = rs.getString("role");
+            User user = new User(id_user,firstname,lastname,username,password,null,role);
             return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);

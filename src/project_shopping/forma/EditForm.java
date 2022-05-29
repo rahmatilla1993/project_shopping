@@ -183,8 +183,11 @@ public class EditForm extends javax.swing.JFrame {
         User user = new User(id_user,name,surname,username,password,repassword);
         
         if(validateUser(user)){
-            if(userservice.editUser(user)){
+            if(!userservice.editUser(user)){
                 JOptionPane.showMessageDialog(this, "Edited");
+            }
+            else{
+                JOptionPane.showMessageDialog(this, "Bunday username bor!");
             }
         }
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -196,10 +199,6 @@ public class EditForm extends javax.swing.JFrame {
         }
         else if(!user.getPassword().equals(user.getRepassword())){
             JOptionPane.showMessageDialog(this, "Parollar mos kelmadi!!!");
-            return false;
-        }
-        else if(userservice.existsByUsernameAndIdIsNot(user.getUsername(), id_user)){
-            JOptionPane.showMessageDialog(this, "Bunday username bor");
             return false;
         }
         else if(user.getFirstname().length() < 3){
