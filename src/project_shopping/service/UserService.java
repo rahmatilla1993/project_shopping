@@ -50,6 +50,26 @@ public class UserService extends DBService {
         }
     }
     
+    public boolean existsByUsernameAndIdIsNot(String _username, Integer id){
+        boolean exist = false;
+        try {
+            String query = "SELECT username FROM user WHERE id_user != " + id;
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            while(rs.next()){
+                String username = rs.getString("username");
+                if(username.equals(_username)){
+                    exist = true;
+                    break;
+                }
+            }
+            return exist;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     public boolean hasUsername(String _username){
         boolean exist = false;
         try {

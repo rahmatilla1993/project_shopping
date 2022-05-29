@@ -182,12 +182,6 @@ public class EditForm extends javax.swing.JFrame {
         
         User user = new User(id_user,name,surname,username,password,repassword);
         
-        nameField.setText(null);
-        surnameField.setText(null);
-        usernameField.setText(null);
-        passwordField.setText(null);
-        repasswordField.setText(null);
-        
         if(validateUser(user)){
             if(userservice.editUser(user)){
                 JOptionPane.showMessageDialog(this, "Edited");
@@ -204,7 +198,7 @@ public class EditForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Parollar mos kelmadi!!!");
             return false;
         }
-        else if(userservice.hasUsername(user.getUsername())){
+        else if(userservice.existsByUsernameAndIdIsNot(user.getUsername(), id_user)){
             JOptionPane.showMessageDialog(this, "Bunday username bor");
             return false;
         }

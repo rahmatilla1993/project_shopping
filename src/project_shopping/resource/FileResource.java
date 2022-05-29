@@ -37,12 +37,8 @@ public class FileResource {
         try {
                 file = new File(fileName);
                 fileWriter = new FileWriter(file);
-                fileReader = new FileReader(file);
                 writer = new BufferedWriter(fileWriter);
-                reader = new BufferedReader(fileReader);
                 writer.write(user.getId_user().toString());
-                writer.newLine();
-                writer.write(user.getUsername());
                 writer.newLine();
                 writer.close();
             } catch (IOException ex) {
@@ -50,8 +46,8 @@ public class FileResource {
             }
     }
     
-    public boolean fileExists(){
-        return file.exists();
+    public static boolean fileExists(){
+        return file != null;
     }
     
     public static void fileDelete(){
@@ -65,11 +61,15 @@ public class FileResource {
     
     public static Integer getUserId(){
         try {
+            fileReader = new FileReader(file);
+            reader = new BufferedReader(fileReader);
             String line = reader.readLine();
-            return Integer.parseInt(line);
+            if(line != null){
+                return Integer.parseInt(line);
+            }
         } catch (IOException ex) {
             Logger.getLogger(FileResource.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
         }   
+        return null;
     }
 }

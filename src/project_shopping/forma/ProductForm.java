@@ -6,10 +6,16 @@ package project_shopping.forma;
 
 import java.awt.Image;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -35,6 +41,9 @@ public class ProductForm extends javax.swing.JFrame {
     CategoryService cat_service;
     BrandService brend_service;
     ProductService prod_service;
+    private String destination = "C:\\Users\\Admin\\Documents\\"
+                                        + "NetBeansProjects\\project_shopping\\src\\"
+                                        + "project_shopping\\images\\";
     
     private void ClearAllItemsOnComboBox(){
         brend_field.removeAllItems();
@@ -280,6 +289,7 @@ public class ProductForm extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private boolean isAdded = false;
     private void addBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addBtnActionPerformed
 
         // TODO add your handling code here:
@@ -297,8 +307,14 @@ public class ProductForm extends javax.swing.JFrame {
             }
             Product product = new Product(name,delivery_date,validate_date,status,price,img_path,cat_id,brend_id);
             if(prod_service.addProduct(product)){
-                JOptionPane.showMessageDialog(this, "Product successfully added!");
-                jTable1.setModel(DbUtils.resultSetToTableModel(prod_service.getProducts()));
+                try {
+                    Files.copy(pathIn, pathout, StandardCopyOption.REPLACE_EXISTING);
+                    JOptionPane.showMessageDialog(this, "Product successfully added!");
+                    jTable1.setModel(DbUtils.resultSetToTableModel(prod_service.getProducts()));
+                } catch (IOException ex) {
+                    Logger.getLogger(ProductForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                isAdded = false;
             }
             else{
                 JOptionPane.showMessageDialog(this, "Xatolik");
@@ -311,6 +327,8 @@ public class ProductForm extends javax.swing.JFrame {
     
     private String img_path;
     private Integer id_product;
+    private Path pathIn;
+    private Path pathout;
     
     private void browse_btnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browse_btnActionPerformed
         // TODO add your handling code here:
@@ -320,10 +338,17 @@ public class ProductForm extends javax.swing.JFrame {
         file.addChoosableFileFilter(filter);
         int res = file.showSaveDialog(file);
         if(res == JFileChooser.APPROVE_OPTION){
+            isAdded = true;
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
+            String destinationPath = destination;
+            String format = path.substring(path.lastIndexOf(".") + 1);
+            String fileName = UUID.randomUUID().toString() + "." + format;
+            destinationPath += fileName;
+            pathIn = Paths.get(path);
+            pathout = Paths.get(destinationPath);
             place_photo.setIcon(ReSizeCover(path));
-            img_path = path;
+            img_path = destinationPath;
         }
         else if(res == JFileChooser.CANCEL_OPTION){
             JOptionPane.showMessageDialog(this, "No file selected");
@@ -390,8 +415,15 @@ public class ProductForm extends javax.swing.JFrame {
             }
             
             Product product = new Product(id_product,name,delivery_date,validate_date,status,price,img_path,cat_id,brend_id);
-//            JOptionPane.showMessageDialog(this, product);
             if(prod_service.editProduct(product)){
+                if(isAdded){
+                    try {
+                        Files.copy(pathIn, pathout, StandardCopyOption.REPLACE_EXISTING);
+                    } catch (IOException ex) {
+                        Logger.getLogger(ProductForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    isAdded = false;
+                }
                 JOptionPane.showMessageDialog(this, "Product successfully edited!");
                 jTable1.setModel(DbUtils.resultSetToTableModel(prod_service.getProducts()));
             }
@@ -406,6 +438,8 @@ public class ProductForm extends javax.swing.JFrame {
         int res = JOptionPane.showConfirmDialog(this, "Are you sure want delete data?");
         if(res == JOptionPane.YES_OPTION){
             if(prod_service.deleteProduct(id_product)){
+                File file = new File(img_path);
+                file.delete();
                 JOptionPane.showMessageDialog(this, "Product deleted");
                 jTable1.setModel(DbUtils.resultSetToTableModel(prod_service.getProducts()));
             }

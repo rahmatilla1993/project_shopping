@@ -127,7 +127,7 @@ public class LoginForm extends javax.swing.JFrame {
             else{
                 InitializeResource(user);
                 MainForm mainForm = new MainForm();
-                mainForm.fileCreated(user.getUsername());
+//                mainForm.fileCreated(user.getUsername());
                 mainForm.setVisible(true);
             }
         }

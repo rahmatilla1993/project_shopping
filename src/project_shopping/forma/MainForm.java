@@ -10,9 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.TableModel;
 import net.proteanit.sql.DbUtils;
 import project_shopping.models.Product;
+import project_shopping.models.User;
 import project_shopping.resource.FileResource;
 import project_shopping.service.CategoryService;
 import project_shopping.service.ProductService;
+import project_shopping.service.UserService;
 
 /**
  *
@@ -26,23 +28,29 @@ public class MainForm extends javax.swing.JFrame {
     private final ProductService prod_service;
     private final CategoryService cat_service;
     private Integer id_product;
+    private UserService userservice;
     
     public MainForm() {
         initComponents();
         jPanel2.setVisible(false);
         prod_service = new ProductService();
         cat_service = new CategoryService();
+        userservice = new UserService();
         jTable1.setModel(DbUtils.resultSetToTableModel(prod_service.getProductNames()));
         LoadFirstProduct();
-    }
-    
-    public void fileCreated(String username){
-        userField.setText("Salom, " + username);
-        jPanel2.setVisible(true);
+        
+        if(FileResource.fileExists()){
+            Integer userId = FileResource.getUserId();
+            if(userId != null){
+                User user = userservice.getUserById(userId);
+                userField.setText(user.getFirstname() + "  " + user.getLastname());
+                jPanel2.setVisible(true);
+            }
+        }
     }
     
     private void LoadFirstProduct(){
-        if(jTable1.getRowCount() >= 0){
+        if(jTable1.getRowCount() > 0){
             getProductByClickTable(0);
         }
     }

@@ -108,7 +108,7 @@ public class AdminForm extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.setVisible(false);
         MainForm mainForm = new MainForm();
-        mainForm.fileCreated("admin");
+//        mainForm.fileCreated("admin");
         mainForm.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
