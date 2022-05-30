@@ -116,7 +116,7 @@ public class LoginForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Parol uzunligi 5 tadan kam!");
         }
         if(userservice.hasUsername(username)){
-            User user = userservice.getUserByUsername(username);
+            User user = userservice.getUserByUsername(username);    
             if(!user.getPassword().equals(password)){
                 JOptionPane.showMessageDialog(this, "Parol xato!");
             }

@@ -41,6 +41,33 @@ public class ProductService extends DBService {
         }
     }
     
+    public String getProductNameById(Integer id){
+        String name = "";
+        try {
+            String query = "SELECT product_name FROM product WHERE id_product = " + id;
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            rs.next();
+            name = rs.getString("product_name");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return name;
+    }
+    
+    public Float getProductPriceById(Integer id){
+        try {
+            String query = "SELECT price FROM product WHERE id_product = " + id;
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            rs.next();
+            return rs.getFloat("price");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     public Product getProductById(Integer id){
         try {
             String query = "SELECT *FROM product WHERE id_product = " + id;

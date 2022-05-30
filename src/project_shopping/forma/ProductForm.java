@@ -337,6 +337,7 @@ public class ProductForm extends javax.swing.JFrame {
         FileNameExtensionFilter filter = new FileNameExtensionFilter(".Images","jpg","png","gif","jpeg");
         file.addChoosableFileFilter(filter);
         int res = file.showSaveDialog(file);
+        
         if(res == JFileChooser.APPROVE_OPTION){
             isAdded = true;
             File selectedFile = file.getSelectedFile();
@@ -369,6 +370,7 @@ public class ProductForm extends javax.swing.JFrame {
         String id_brend = model.getValueAt(jTable1.getSelectedRow(), 8).toString();
         
         img_path = photo;
+        old_path = img_path;
         id_product = Integer.parseInt(id);
         name_field.setText(name);
         java.util.Date delivery_date = null;
@@ -398,7 +400,8 @@ public class ProductForm extends javax.swing.JFrame {
         brend_field.setSelectedItem(brend_service.getBrandNameById(Integer.parseInt(id_brend)));
         
     }//GEN-LAST:event_jTable1MouseClicked
-
+    
+    private String old_path;
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         int res = JOptionPane.showConfirmDialog(this, "Are you sure want edit data?");
@@ -419,6 +422,8 @@ public class ProductForm extends javax.swing.JFrame {
                 if(isAdded){
                     try {
                         Files.copy(pathIn, pathout, StandardCopyOption.REPLACE_EXISTING);
+                        File file = new File(old_path);
+                        file.delete();
                     } catch (IOException ex) {
                         Logger.getLogger(ProductForm.class.getName()).log(Level.SEVERE, null, ex);
                     }

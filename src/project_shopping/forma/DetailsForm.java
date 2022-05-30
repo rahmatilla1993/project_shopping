@@ -7,6 +7,7 @@ package project_shopping.forma;
 import java.awt.Image;
 import javax.swing.ImageIcon;
 import project_shopping.models.Product;
+import project_shopping.resource.FileResource;
 import project_shopping.service.BrandService;
 import project_shopping.service.CategoryService;
 import project_shopping.service.ProductService;
@@ -233,6 +234,9 @@ public class DetailsForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        if(FileResource.fileExists()){
+            FileResource.WriteProductId(id_product);
+        }
         this.setVisible(false);
         new CartForm().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

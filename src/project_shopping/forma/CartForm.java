@@ -4,6 +4,18 @@
  */
 package project_shopping.forma;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import project_shopping.models.OrderDetails;
+import project_shopping.models.Product;
+import project_shopping.models.User;
+import project_shopping.resource.FileResource;
+import project_shopping.service.OrderService;
+import project_shopping.service.ProductService;
+
 /**
  *
  * @author Admin
@@ -13,10 +25,33 @@ public class CartForm extends javax.swing.JFrame {
     /**
      * Creates new form CartForm
      */
+    ProductService prod_ser;
+    List<Integer> productIds;
+    OrderService order_ser;
+    
     public CartForm() {
         initComponents();
+        prod_ser = new ProductService();
+        order_ser = new OrderService();
+        
+        if(FileResource.fileExists()){
+            int i = 0;
+            id_user = FileResource.getUserId();
+            TableModel model = jTable1.getModel();
+            productIds = FileResource.getProductIds();
+            DefaultTableModel dtm = (DefaultTableModel)jTable1.getModel();
+            dtm.setRowCount(productIds.size());
+            for(Integer id : productIds){
+                model.setValueAt(id_user, i, 0);
+                model.setValueAt(prod_ser.getProductNameById(id), i, 1);
+                i++;
+            }
+        }
+        
+//        model.setValueAt(userId, 0, 0);
     }
 
+    private Integer id_user;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -39,17 +74,14 @@ public class CartForm extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
-                "id_user", "id_product", "product_name", "product_count", "delete_product"
+                "id_user", "product_name", "product_count"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -60,6 +92,11 @@ public class CartForm extends javax.swing.JFrame {
 
         jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton1.setText("Buyurtma qilish");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jButton2.setText("Bosh sahifaga o'tish");
@@ -112,6 +149,27 @@ public class CartForm extends javax.swing.JFrame {
         this.setVisible(false);
         new MainForm().setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        TableModel model = jTable1.getModel();
+        int rowCount = model.getRowCount();
+        float total = 0;
+        List<OrderDetails> values = new ArrayList<>();
+        for(int i = 0; i < rowCount; i++){
+            float total_sum = 0;
+            Product product = prod_ser.getProductById(productIds.get(i));
+            Integer prod_count = Integer.parseInt(model.getValueAt(i, 2).toString());
+            total_sum += product.getPrice() * prod_count;
+            values.add(new OrderDetails(product.getId(),product.getBrend_id(),prod_count,total_sum));
+            total += total_sum;
+        }
+        Integer id_order = order_ser.addMainOrder(total, id_user);
+        values.forEach(item -> {
+            order_ser.addOrderByProduct(item, id_order);
+        });
+        JOptionPane.showMessageDialog(this, "Buyurtma qilindi");
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
