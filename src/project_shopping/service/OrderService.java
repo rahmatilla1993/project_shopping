@@ -40,7 +40,6 @@ public class OrderService extends DBService {
             
             String query = "INSERT INTO orders(date_of_order, total_sum, id_user) "
                     + "VALUES('" + format + "'," + total_sum + "," + id_user + ");";
-            JOptionPane.showMessageDialog(null, query);
             Statement createStatement = connection.createStatement();
             createStatement.execute(query);
             
@@ -48,6 +47,29 @@ public class OrderService extends DBService {
             ResultSet rs = createStatement.executeQuery(query_id_order);
             rs.next();
             return Integer.parseInt(rs.getString("id_order"));
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public ResultSet getMainOrder(){
+        try {
+            String query = "SELECT *FROM orders";
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public ResultSet getOrderDetails(){
+        try {
+            String query = "SELECT *FROM order_details";
+            Statement createStatement = connection.createStatement();
+            return createStatement.executeQuery(query);
         } catch (SQLException ex) {
             Logger.getLogger(OrderService.class.getName()).log(Level.SEVERE, null, ex);
             return null;

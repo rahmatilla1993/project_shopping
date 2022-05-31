@@ -16,6 +16,15 @@ public class User {
     private String password;
     private String repassword;
     private String role;
+    private Boolean status;
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
 
     public String getRole() {
         return role;

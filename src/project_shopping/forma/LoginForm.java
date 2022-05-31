@@ -120,6 +120,9 @@ public class LoginForm extends javax.swing.JFrame {
             if(!user.getPassword().equals(password)){
                 JOptionPane.showMessageDialog(this, "Parol xato!");
             }
+            else if(!user.getStatus()){
+                JOptionPane.showMessageDialog(this, "Siz blockdasiz");
+            }
             else if(user.getRole().equals("ADMIN")){
                 InitializeResource(user);
                 new AdminForm().setVisible(true);

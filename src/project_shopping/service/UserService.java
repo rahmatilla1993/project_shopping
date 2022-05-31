@@ -19,6 +19,19 @@ import project_shopping.models.User;
  */
 public class UserService extends DBService {
     
+    public ResultSet getUsers(){
+        try {
+            String query = "SELECT id_user, first_name, last_name,"
+                    + "username, status FROM user";
+            Statement createStatement = connection.createStatement();
+            ResultSet rs = createStatement.executeQuery(query);
+            return rs;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
     public boolean addUser(User user){
         try {
             String query = "{? = CALL addUser(?,?,?,?)}";
@@ -106,6 +119,7 @@ public class UserService extends DBService {
             String password = rs.getString("password");
             String role = rs.getString("role");
             User user = new User(id_user,firstname,lastname,username,password,null,role);
+            user.setStatus(rs.getBoolean("status"));
             return user;
         } catch (SQLException ex) {
             Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
