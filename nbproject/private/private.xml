@@ -1,19 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="1">
+        <file>
+            <url>src/project_shopping/forma/LoginForm.java</url>
+            <bookmark id="1">
+                <name/>
+                <line>113</line>
+                <key/>
+            </bookmark>
+        </file>
+    </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/EditForm.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/AdminForm.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/RegisterForm.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/UserService.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/CategoryService.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/OrderForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/DetailsForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/UserForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/models/Product.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/OrderService.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/CartForm.java</file>
-            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/resource/text.txt</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/ProductService.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/MainForm.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/models/User.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/resource/FileResource.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/ProductForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/EditForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/RegisterForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/service/UserService.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/models/OrderDetails.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/LoginForm.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/project_shopping/src/project_shopping/forma/OrderHistroryForm.java</file>
         </group>
     </open-files>
 </project-private>

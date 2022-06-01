@@ -68,6 +68,18 @@ public class UserService extends DBService {
         }
     }
     
+    public boolean setStatusToUser(Boolean status, Integer id_user){
+        try {
+            String query = "UPDATE user SET status = " + status + " WHERE id_user = " + id_user;
+            Statement createStatement = connection.createStatement();
+            createStatement.execute(query);
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(UserService.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
     public boolean hasUsername(String _username){
         boolean exist = false;
         try {

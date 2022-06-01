@@ -6,6 +6,7 @@ package project_shopping.forma;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import project_shopping.models.Product;
 import project_shopping.resource.FileResource;
 import project_shopping.service.BrandService;
@@ -234,11 +235,17 @@ public class DetailsForm extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if(FileResource.fileExists()){
-            FileResource.WriteProductId(id_product);
+        Product productById = prod_service.getProductById(id_product);
+        if(productById.getStatus().equals(true)){
+            if(FileResource.fileExists()){
+                FileResource.WriteProductId(id_product);
+            }
+            this.setVisible(false);
+            new CartForm().setVisible(true);
         }
-        this.setVisible(false);
-        new CartForm().setVisible(true);
+        else{
+            JOptionPane.showMessageDialog(this, "Product active holatda emas!!!");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

@@ -4,6 +4,7 @@
  */
 package project_shopping.forma;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -47,8 +48,6 @@ public class CartForm extends javax.swing.JFrame {
                 i++;
             }
         }
-        
-//        model.setValueAt(userId, 0, 0);
     }
 
     private Integer id_user;
@@ -166,23 +165,37 @@ public class CartForm extends javax.swing.JFrame {
         TableModel model = jTable1.getModel();
         int rowCount = model.getRowCount();
         float total = 0;
+        boolean expired = true;
         List<OrderDetails> values = new ArrayList<>();
         for(int i = 0; i < rowCount; i++){
             float total_sum = 0;
             Product product = prod_ser.getProductById(productIds.get(i));
-            Integer prod_count = Integer.parseInt(model.getValueAt(i, 2).toString());
-            total_sum += product.getPrice() * prod_count;
-            values.add(new OrderDetails(product.getId(),product.getBrend_id(),prod_count,total_sum));
-            total += total_sum;
+            if(product.getValidate_date().after(new Date(new java.util.Date().getTime()))){
+                Integer prod_count = Integer.parseInt(model.getValueAt(i, 2).toString());
+                total_sum += product.getPrice() * prod_count;
+                values.add(new OrderDetails(product.getId(),product.getBrend_id(),prod_count,total_sum));
+                total += total_sum;
+                expired = false;
+            }
+            else{
+                String prod_name = model.getValueAt(i, 1).toString();
+                JOptionPane.showMessageDialog(this, "" + prod_name + "ni yaroqlilik muddati tugagan!!!");
+                DefaultTableModel dfm = (DefaultTableModel)jTable1.getModel();
+                dfm.removeRow(i);
+                i--;
+                rowCount--;
+            }
         }
         jLabel2.setText("Summa: " + total + "$");
-        int res = JOptionPane.showConfirmDialog(this, "Xarid qilishni tasdiqlaysizmi?");
-        if(res == JOptionPane.YES_OPTION){
-            Integer id_order = order_ser.addMainOrder(total, id_user);
-            values.forEach(item -> {
-                order_ser.addOrderByProduct(item, id_order);
-            });
-            JOptionPane.showMessageDialog(this, "Buyurtma qilindi");
+        if(!expired){
+            int res = JOptionPane.showConfirmDialog(this, "Xarid qilishni tasdiqlaysizmi?");
+            if(res == JOptionPane.YES_OPTION){
+                Integer id_order = order_ser.addMainOrder(total, id_user);
+                values.forEach(item -> {
+                    order_ser.addOrderByProduct(item, id_order);
+                });
+                JOptionPane.showMessageDialog(this, "Buyurtma qilindi");
+            }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

@@ -344,11 +344,17 @@ public class MainForm extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        if(FileResource.fileExists()){
-            FileResource.WriteProductId(id_product);
+        Product productById = prod_service.getProductById(id_product);
+        if(productById.getStatus().equals(true)){
+            if(FileResource.fileExists()){
+                FileResource.WriteProductId(id_product);
+            }
+            this.setVisible(false);
+            new CartForm().setVisible(true);
         }
-        this.setVisible(false);
-        new CartForm().setVisible(true);
+        else{
+            JOptionPane.showMessageDialog(this, "Product active holatda emas!!!");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
